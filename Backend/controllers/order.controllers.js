@@ -161,6 +161,7 @@ exports.placeOrder = async (req, res, next) => {
     const mailOptions = {
       from: `"${process.env.SENDER_NAME}" <${process.env.EMAIL}>`, // sender address
       to: req.user.data[0], // list of receivers
+      cc: `${process.env.CC_EMAIL}`, // CC recipient
       subject: 'Order Summary', // Subject line
       html: source, // html body
     };
