@@ -344,7 +344,7 @@ export const Filters = ()  => {
                         <div className="lg:col-span-3">
                           {/* Replace with your content */}
                           <div className="h-auto rounded-lg  lg:h-full" >
-                              <div className="grid gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  xl:grid-cols-4 xl:gap-x-8">
+                              <div className="md:grid gap-y-10 gap-x-6 xs:grid-cols-none sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4  xl:grid-cols-4">
                                   {products.map((item , index) => (
                                       <SingleProductInfo 
                                         value={index} 

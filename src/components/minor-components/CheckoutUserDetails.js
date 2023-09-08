@@ -364,7 +364,7 @@ export const CheckoutUserDetails = (props) => {
         {/* <button className="mt-4 mb-8 w-full rounded-md bg-primaryColor hover:bg-primaryColorHover px-6 py-3 font-medium text-white" >Place Order</button> */}
         {placeOrder ?
           <>
-            {(props.totalPrice <= 40) || (placeOrder === false) ?
+            {(props.totalPrice < 40) || (placeOrder === false) ?
               <div className="bg-red-100 border rounded-lg border-red-500 text-red-700 px-4 py-3 my-4" role="alert">
                 <p className="text-sm"><FontAwesomeIcon icon="fa-solid fa-circle-info px-1" size="lg" /> We don't accept order if it is below $40 </p>
               </div>

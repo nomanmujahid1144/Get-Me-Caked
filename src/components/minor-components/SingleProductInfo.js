@@ -52,7 +52,7 @@ export const SingleProductInfo = (props) => {
     
     return (
         <>
-        <div className="group border-2 rounded-3xl relative">
+        <div className="group border-2 my-3 md:my-0 rounded-3xl relative">
             {props.item?.featureProduct ? 
                 <div class="feature-product">
                     <span >Featured</span>

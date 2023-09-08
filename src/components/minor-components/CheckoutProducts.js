@@ -123,7 +123,7 @@ export const CheckoutProducts = ({ ...product }) => {
                                 <>
                                     <div className="self-center">
                                         {product.cartExtras.map((extra, index) => (
-                                            <div className="w-100 grid grid-cols-6 md:grid-cols-6 items-center">
+                                            <div className="w-100 md:grid grid-cols-6 md:grid-cols-6 items-center">
                                                 <div className="flex col-span-4 gap-3">
                                                     <span key={index} className="float-right text-textColor">{index + 1})</span>
                                                     <span key={index} className="float-right text-gray-400">{extra.productName}</span>
