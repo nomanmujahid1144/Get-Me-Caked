@@ -108,7 +108,7 @@ export const CheckoutProducts = ({ ...product }) => {
                                         <p className="text-lg font-bold">${product.cartProductPrice * product.cartProductQuantity}</p>
                                     </div>
                                     <div className="flex w-full flex-col px-4 py-4 ">
-                                        <div className="custom-number-input m-[4%]  w-28 absolute top-0 right-0">
+                                        <div className="custom-number-input md:m-[4%] m-[-2%]  w-28 absolute top-0 right-0">
                                             <div className="flex flex-row h-6 w-full border border-[#FFFFFF]-600 rounded-lg relative opacity-[0.67] bg-[#000000] hover:text-[#000000]-700 hover:bg-[#000000]-400 bg-transparent mt-1">
                                                 <span onClick={product.cartProductQuantity !== 0 ? (e) => handleCartProducts(e, 'minus') : (e) => handleCart} data-keyvalue={product.cartProductQuantity} className={`flex items-center w-full justify-center border-[#FFFFFF]-600 opacity-[0.67] bg-[#000000]  text-white rounded-l-[20%]  h-full   ${product.cartProductQuantity !== 0 ? 'cursor-pointer' : 'cursor-not-allowed '} outline-none m-auto text-lg font-thin`}>
                                                     -
