@@ -93,7 +93,8 @@ exports.placeOrder = async (req, res, next) => {
     </head>
     <body>
       <h2>Order Details</h2>
-      <p>Dear Customer  <strong>  ${result?.userId.fullName}   </strong> Your order has been placed on Order No# <strong>  ${order.orderid}   </strong></p> 
+      <p>Dear Customer  <strong>  ${result?.userId?.fullName}   </strong> Your order has been placed on Order No# <strong>  ${order.orderid}   </strong></p> 
+      <p>Customer Phone Number  <strong>  ${result?.userId?.phoneNumber} </strong></p>
       <p>Order Date: ${result.date} at ${result.time}</p>
       <table id='customers'>
         <thead>
