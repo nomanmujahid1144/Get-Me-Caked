@@ -36,8 +36,13 @@ const productSchema = new mongoose.Schema({
         focused: Number,
         thc : Number,
         cbd : Number,
+        sleepy : Number,
     },
     favourite : {
+        type: Boolean,
+        default : false
+    },
+    hideProduct : {
         type: Boolean,
         default : false
     },

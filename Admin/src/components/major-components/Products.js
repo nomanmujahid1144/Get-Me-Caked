@@ -14,7 +14,7 @@ const tableColumnsReal = [
     'Sub-Category',
     'Brand',
     'Price',
-    'Effects (upl, eup, ene, cre, foc, thc, cbd)',
+    'Effects (upl, eup, ene, cre, foc, thc, cbd, slp)',
     'Actions'
 ]
 export const Products = () => {

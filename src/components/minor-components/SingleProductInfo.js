@@ -59,7 +59,7 @@ export const SingleProductInfo = (props) => {
                 </div>
             : null} 
             <div className="aspect-w-1 aspect-h-1  overflow-hidden rounded-t-3xl bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-                <img onClick={() => { setIsOpen(true)}} src={`${baseURL}${props.item.productPhoto}`} alt="No Img." className="h-40 w-full object-cover object-center cursor-pointer group-hover:opacity-50" />
+                <img onClick={() => { setIsOpen(true)}} src={`${baseURL}${props.item.productPhoto}`} alt="No Img." className="h-40 w-full  object-contain cursor-pointer group-hover:opacity-50" />
             </div>
             <div className="mb-2">
                 <h3 className="mt-4 px-3 text-lg font-bold text-gray-900 truncate">{props.item.name}</h3>

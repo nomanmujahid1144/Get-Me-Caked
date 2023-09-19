@@ -114,7 +114,7 @@ export const SingleProductDetails = (props) => {
                         </div>
                         <div className="w-12/12 p-2 ">
                             <div className="mt-8 border-[0.5px] h-56 rounded border-textColor">
-                                <img alt="No Img." className="w-full h-56 object-cover object-center group-hover:opacity-50" src={`${baseURL}${props.item.productPhoto}`} />
+                                <img alt="No Img." className="w-full h-56 object-contain object-center group-hover:opacity-50" src={`${baseURL}${props.item.productPhoto}`} />
                             </div>
                             {props.item.extras.length > 0 ?
                                 <>

@@ -74,7 +74,7 @@ export const Card = ({ svg, ...rest }) => {
                         </div>
                     : null} 
                     <div className="aspect-w-1 w-full aspect-h-1  overflow-hidden rounded-t-3xl bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-                        <img onClick={() => { setIsOpen(true)}} className="h-40 w-full object-cover cursor-pointer object-center group-hover:opacity-50" src={svg} alt='prod' />
+                        <img onClick={() => { setIsOpen(true)}} className="h-40 w-full object-contain cursor-pointer object-center group-hover:opacity-50" src={svg} alt='prod' />
                     </div>
                     {!status  ?  
                         <div onClick={handleCart} data-item={rest.item._id} className="">

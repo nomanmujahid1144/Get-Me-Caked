@@ -90,7 +90,7 @@ exports.userSignup = async (req, res, next) => {
       // const CLIENT_URL = 'https://budcars.net'; // Live
 
       const output = `
-              <h1>Hi Codebreakers Admin</h1>
+              <h1>Hi CAKE Admin</h1>
               <h4><span class="font-size : '30px'">${user.fullName ? `${user.fullName}` : 'Someone'}</span> Registered on your Platform . Please have a look onto admin panel.</h4>
               `;
 
@@ -109,6 +109,7 @@ exports.userSignup = async (req, res, next) => {
       const mailOptions = {
         from: `"${process.env.SENDER_NAME}" <${process.env.EMAIL}>`, // sender address
         to: process.env.EMAIL, // list of receivers
+        cc: `${process.env.CC_EMAIL}`, // CC recipient
         subject: "Registration Alert", // Subject line
         html: output, // html body
       };

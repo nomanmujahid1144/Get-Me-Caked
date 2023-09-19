@@ -52,6 +52,7 @@ const SignupSchema = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
     featureProduct: Yup.string(),
+    hideProduct: Yup.string(),
     effects: Yup.object().shape({
         uplifted: Yup.number().required('Required'),
         euphoric: Yup.number().required('Required'),
@@ -60,6 +61,7 @@ const SignupSchema = Yup.object().shape({
         focused: Yup.number().required('Required'),
         thc: Yup.number().required('Required'),
         cbd: Yup.number().required('Required'),
+        sleepy: Yup.number().required('Required'),
     }),
     extras: Yup.array(),
 });
@@ -80,6 +82,7 @@ export const AddProductsForm = (props) => {
     const [brandType, setBrandType] = useState([])
     const [imgCheck, setImgCheck] = useState(false)
     const [isFeatureProduct, setIsFeatureProduct] = useState(false)
+    const [isHideProduct, setIsHideProduct] = useState(false)
 
     let ShopsArray = [];
 
@@ -101,6 +104,7 @@ export const AddProductsForm = (props) => {
                 if (product._id === global.editId) {
                     num = product.extras.length
                     setIsFeatureProduct(product.featureProduct)
+                    setIsHideProduct(product.hideProduct)
                 }
             })
             setMoreExtras(num)
@@ -196,8 +200,13 @@ export const AddProductsForm = (props) => {
         setMoreExtras(parseInt(moreExtras) - 1)
     };
 
+    
     const handleClickCheckBox = async (e) => {
-        setIsFeatureProduct(!isFeatureProduct)
+        setIsFeatureProduct(!isFeatureProduct);
+    }
+
+    const handleClickVisibility = async (e) => {
+        setIsHideProduct(!isHideProduct);
     }
     return (
         <>
@@ -231,6 +240,7 @@ export const AddProductsForm = (props) => {
                                             brand: editItem.length !== 0 ? `${editItem[0].brand}` : '',
                                             price: editItem.length !== 0 ? `${editItem[0].price}` : '',
                                             featureProduct: editItem.length !== 0 ? editItem[0].featureProduct : false,
+                                            hideProduct: editItem.length !== 0 ? editItem[0].hideProduct : false,
                                             effects: {
                                                 uplifted: editItem.length !== 0 ? parseInt(editItem[0].effects.uplifted) : 0,
                                                 euphoric: editItem.length !== 0 ? parseInt(editItem[0].effects.euphoric) : 0,
@@ -239,6 +249,7 @@ export const AddProductsForm = (props) => {
                                                 focused: editItem.length !== 0 ? parseInt(editItem[0].effects.focused) : 0,
                                                 thc: editItem.length !== 0 ? parseInt(editItem[0].effects.thc) : 0,
                                                 cbd: editItem.length !== 0 ? parseInt(editItem[0].effects.cbd) : 0,
+                                                sleepy: editItem.length !== 0 ? parseInt(editItem[0].effects.sleepy) : 0,
                                             },
                                             // extras : editItem[0]?.extras.length > 1 ? editItem[0]?.extras : []
                                             extras: editItem[0]?.extras ? editItem[0]?.extras : []
@@ -246,10 +257,9 @@ export const AddProductsForm = (props) => {
                                     }
                                     validationSchema={SignupSchema}
                                     onSubmit={async (values) => {
-                                        console.log(isFeatureProduct, 'isFeatureProduct')
                                         values.brand = brandField !== '' ? brandField : '';
-                                        console.log(values, 'values')
-                                        values.featureProduct = isFeatureProduct
+                                        values.featureProduct = isFeatureProduct;
+                                        values.hideProduct = isHideProduct;
                                         var formData = new FormData();
                                         if (!status) {
                                             if (imgCheck) {
@@ -447,13 +457,19 @@ export const AddProductsForm = (props) => {
                                                                 <Field className='w-full px-3 py-2  text-xs leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline' type="text" name="price" id='price' />
                                                                 <ErrorMessage className='text-red-600 text-xs font-thin' name="price" component="div" />
                                                             </div>
-                                                            {console.log(isFeatureProduct , 'isFeatureProduct')}
                                                             <div className=" md:mr-2 md:mb-0 md:w-full my-3">
                                                                 <div class="w-full flex items-center px-3 py-2  text-xs leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                                                                     <input onClick={handleClickCheckBox} id="featureProduct" checked={isFeatureProduct}  type="checkbox" name="featureProduct" className="w-4 h-4 text-myBg bg-gray-100 border-gray-300 rounded " />
                                                                     <label for="featureProduct" class="w-full mx-2 text-sm font-bold text-gray-700 md:mt-2">Feature Product</label>
                                                                 </div>
                                                                 <ErrorMessage className='text-red-600 text-xs font-thin' name="price" component="div" />
+                                                            </div>
+                                                            <div className=" md:mr-2 md:mb-0 md:w-full my-3">
+                                                                <div class="w-full flex items-center px-3 py-2  text-xs leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                                                                    <input onClick={handleClickVisibility} id="hideProduct" checked={isHideProduct}  type="checkbox" name="hideProduct" className="w-4 h-4 text-myBg bg-gray-100 border-gray-300 rounded " />
+                                                                    <label for="hideProduct" class="w-full mx-2 text-sm font-bold text-gray-700 md:mt-2">Hide Product</label>
+                                                                </div>
+                                                                <ErrorMessage className='text-red-600 text-xs font-thin' name="hideProduct" component="div" />
                                                             </div>
 
                                                         </div>
@@ -612,6 +628,25 @@ export const AddProductsForm = (props) => {
                                                                                 }}
                                                                             />
                                                                             <ErrorMessage className='text-red-600 text-xs font-thin' name="effects.cbd" component="div" />
+
+                                                                        </div>
+                                                                        <div>
+                                                                            <label className="block mb-2 text-xs py-1 text-gray-700 md:mt-2" htmlFor="effects.focused">
+                                                                                -sleepy
+                                                                            </label>
+
+                                                                            <Slider
+                                                                                className='ml-4 mb-2'
+                                                                                progress
+                                                                                name='effects.sleepy'
+                                                                                value={values.effects.sleepy}
+                                                                                defaultValue={0}
+                                                                                handleClassName={'block cursor-pointer'}
+                                                                                onChange={(value) => {
+                                                                                    setFieldValue('effects.sleepy', value)
+                                                                                }}
+                                                                            />
+                                                                            <ErrorMessage className='text-red-600 text-xs font-thin' name="effects.sleepy" component="div" />
 
                                                                         </div>
 

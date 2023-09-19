@@ -65,9 +65,7 @@ exports.addProduct = async (req, res, next) => {
     try {
         console.log('got here success fully')
         const body = JSON.parse(req.query.values)
-        console.log(body)
         const count = JSON.parse(req.query.count)
-        console.log(count , 'count here iskdjasnkdjsnadkjnsdkjasndjsan')
         let extras = [];
 
         if(body.productName_1 && body.cost_1 !== ''){
@@ -78,7 +76,6 @@ exports.addProduct = async (req, res, next) => {
                                 "cost" : "${eval(`body.cost_${i.toString()}`) ? eval(`body.cost_${i.toString()}`) : ''}"
                             }
                         }`)
-                    console.log(storedString , 'storedString')
                 extras.push(storedString);
             }
         }
@@ -93,7 +90,6 @@ exports.addProduct = async (req, res, next) => {
             })
         }
         const uploadedPath = await uploadImage(req.files.image, next)
-        console.log(uploadedPath, 'path')
         const product = new Product({
             name: body.name,
             shopid: body.shopid,
@@ -102,14 +98,15 @@ exports.addProduct = async (req, res, next) => {
             description: body.description,
             subCategory: body.subCategory,
             featureProduct: body.featureProduct,
+            hideProduct: body.hideProduct,
             brand: body.brand,
             price: body.price,
             effects: body.effects,
             extras : extras,
             productPhoto: uploadedPath.photoPath
         })
-        const addedProduct = await product.save()
-        console.log(addedProduct)
+        const addedProduct = await product.save();
+
         if (!addedProduct) {
             return next(new ErrorResponse('add product failed', 400))
         }
@@ -125,9 +122,7 @@ exports.addProduct = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
     try {
         let body = JSON.parse(req.query.values)
-        console.log(body , 'body')
         const count = JSON.parse(req.query.count)
-        console.log(count , 'count here iskdjasnkdjsnadkjnsdkjasndjsan')
         let extras = [];
 
         const id = req.query.id
@@ -180,8 +175,8 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.getAllProducts = async (req, res, next) => {
     try {
-        const products = await Product.find({})
-        console.log(products)
+        const products = await Product.find({});
+
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -201,8 +196,8 @@ exports.getAllProducts = async (req, res, next) => {
 }
 exports.getFeatureProducts = async (req, res, next) => {
     try {
-        const products = await Product.find({ featureProduct : true})
-        console.log(products)
+        const products = await Product.find({ featureProduct: true, hideProduct: false });
+
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -222,29 +217,7 @@ exports.getFeatureProducts = async (req, res, next) => {
 }
 exports.getdiscountproducts = async (req, res, next) => {
     try {
-        const products = await Product.find({ price: { $lt: 40 } })
-        console.log(products)
-        if (products.length <= 0) {
-            return res.status(200).json({
-                success: true,
-                data: [],
-                message: 'No products found'
-            })
-        }
-        return res.status(200).json({
-            success: true,
-            data: products,
-            message: "Products found"
-        })
-    }
-    catch (err) {
-        return next(new ErrorResponse(err, 400))
-    }
-}
-exports.getdiscountproducts = async (req, res, next) => {
-    try {
-        const products = await Product.find({ price: { $lt: 40 } })
-        console.log(products)
+        const products = await Product.find({ price: { $lt: 40 } , hideProduct: false})
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -263,10 +236,9 @@ exports.getdiscountproducts = async (req, res, next) => {
     }
 }
 exports.getProductByBrand = async (req, res, next) => {
-    console.log(req.query , "Brand")
     try {
-        const products = await Product.find({'brand' :  req.query.brand})
-        console.log(products)
+        const products = await Product.find({ 'brand': req.query.brand, hideProduct: false });
+
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -293,18 +265,17 @@ exports.getProductByBrandWithCategory = async (req, res, next) => {
     let obj = {} ; 
     let inner = [{ brand: req.query.brand }];
     if(req.query.category != ''){
-        inner.push({category: req.query.category})
+        inner.push({category: req.query.category, hideProduct: false})
     }
     if(req.query.subCategory != ''){
-        inner.push({subCategory: req.query.subCategory})
+        inner.push({subCategory: req.query.subCategory, hideProduct: false})
     }
     if(req.query.type != ''){
-        inner.push({type: req.query.type})
+        inner.push({type: req.query.type, hideProduct: false})
     }
     obj = { $and : inner}
     try {
         const products = await Product.find(obj)
-        console.log(products)
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -365,14 +336,11 @@ exports.deleteProducts = async (req, res, next) => {
                 }
             });
             const deletedProducts = await Product.deleteOne({ _id: mongoose.Types.ObjectId(element) })
-            console.log(deletedProducts)
             if (deletedProducts.n >= 1) {
                 deletedCount = deletedCount + 1
             }
-            console.log(deletedCount, "inside map deleted count")
         })).then(
             () => {
-                console.log('deleted count', deletedCount)
                 if (req.query.IDS.length === deletedCount) {
                     return res.status(200).json({
                         success: true,
@@ -431,7 +399,6 @@ exports.addToFavourite = async (req, res, next) => {
 exports.getAllFavourites = async (req, res, next) => {
     try {
         const products = await Product.find({'favourite' : true})
-        console.log(products)
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
