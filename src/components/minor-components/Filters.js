@@ -26,9 +26,10 @@ export const Filters = ()  => {
   let alert = useAlert();
 
   useEffect(() => {
-      fetchProducts();
+    fetchProducts();
+    console.log('CATGORY FOUND')
       navigate(`/brand/${brandName}`)
-  }, [brandName  ]) 
+  }, [brandName]) 
 
   useEffect(() => {
       filtersss()
@@ -202,7 +203,8 @@ export const Filters = ()  => {
       <>
         {!loading ? (
               <div className="bg-white w-100">
-                {/* Mobile filter dialog */}
+          {/* Mobile filter dialog */}
+          {console.log(filters, 'filters')}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
                       <Transition.Child
@@ -304,7 +306,7 @@ export const Filters = ()  => {
 
                       <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                         {/* Filters */}
-                        <form className="hidden lg:block">
+                        <form className="md:hidden lg:block">
 
                           {filters.map((section) => (
                             <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">

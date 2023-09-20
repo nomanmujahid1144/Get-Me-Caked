@@ -175,7 +175,7 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.getAllProducts = async (req, res, next) => {
     try {
-        const products = await Product.find({});
+        const products = await Product.find({}).sort({ createdAt: -1 });
 
         if (products.length <= 0) {
             return res.status(200).json({
@@ -196,7 +196,7 @@ exports.getAllProducts = async (req, res, next) => {
 }
 exports.getFeatureProducts = async (req, res, next) => {
     try {
-        const products = await Product.find({ featureProduct: true, hideProduct: false });
+        const products = await Product.find({ featureProduct: true, hideProduct: false }).sort({ createdAt: -1 });
 
         if (products.length <= 0) {
             return res.status(200).json({
@@ -217,7 +217,7 @@ exports.getFeatureProducts = async (req, res, next) => {
 }
 exports.getdiscountproducts = async (req, res, next) => {
     try {
-        const products = await Product.find({ price: { $lt: 40 } , hideProduct: false})
+        const products = await Product.find({ price: { $lt: 40 } , hideProduct: false}).sort({ createdAt: -1 })
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -237,7 +237,7 @@ exports.getdiscountproducts = async (req, res, next) => {
 }
 exports.getProductByBrand = async (req, res, next) => {
     try {
-        const products = await Product.find({ 'brand': req.query.brand, hideProduct: false });
+        const products = await Product.find({ 'brand': req.query.brand, hideProduct: false }).sort({ createdAt: -1 });
 
         if (products.length <= 0) {
             return res.status(200).json({
@@ -275,7 +275,7 @@ exports.getProductByBrandWithCategory = async (req, res, next) => {
     }
     obj = { $and : inner}
     try {
-        const products = await Product.find(obj)
+        const products = await Product.find(obj).sort({ createdAt: -1 })
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -296,7 +296,7 @@ exports.getProductByBrandWithCategory = async (req, res, next) => {
 
 exports.getAllProductsClientSide = async (req, res, next) => {
     try {
-        const products = await Product.find({})
+        const products = await Product.find({}).sort({ createdAt: -1 })
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,
@@ -376,7 +376,7 @@ exports.addToFavourite = async (req, res, next) => {
         }
         const id = req.body.id
 
-        const updatedProduct = await Product.updateOne({ _id: mongoose.Types.ObjectId(id) }, favourites)
+        const updatedProduct = await Product.updateOne({ _id: mongoose.Types.ObjectId(id) }, favourites).sort({ createdAt: -1 })
         if (updatedProduct.nModified !== 1) {
             return res.status(200).json({
                 data: null,
@@ -398,7 +398,7 @@ exports.addToFavourite = async (req, res, next) => {
 
 exports.getAllFavourites = async (req, res, next) => {
     try {
-        const products = await Product.find({'favourite' : true})
+        const products = await Product.find({'favourite' : true}).sort({ createdAt: -1 })
         if (products.length <= 0) {
             return res.status(200).json({
                 success: true,

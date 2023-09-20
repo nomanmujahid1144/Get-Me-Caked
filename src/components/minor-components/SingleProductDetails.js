@@ -108,6 +108,10 @@ export const SingleProductDetails = (props) => {
                                         <div className="w-full bg-gray-200 rounded-full mt-2 ">
                                             <div className="bg-primaryColor text-xs h-2.7 font-medium text-textColorWhite text-center p-0.5 leading-none rounded-full" style={{ width: `${props.item.effects.cbd}%` }}> {props.item.effects.cbd}%</div>
                                         </div>
+                                        <p className="text-sm font-medium mt-1">Sleepy</p>
+                                        <div className="w-full bg-gray-200 rounded-full mt-2 ">
+                                            <div className="bg-primaryColor text-xs h-2.7 font-medium text-textColorWhite text-center p-0.5 leading-none rounded-full" style={{ width: `${props.item.effects.sleepy ? props.item.effects.sleepy : 0}%` }}> {props.item.effects.sleepy ? props.item.effects.sleepy : 0}%</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
