@@ -57,22 +57,21 @@ export const Orders = () => {
         })
         if (orders.data.success) {
             let filteredData = orders?.data?.data?.pendingOrder.map((item) => {
-                console.log(item , 'item')
                 return {
                     id: item._id,
                     orderId : item.orderid,
-                    productName: item.details.map((item2) => {
-                        return item2.productId.name
+                    productName: item.details?.map((item2) => {
+                        return item2.productId?.name
                     }).join(" / "),
-                    productQuantity: item.details.map((item2) => {
-                        return item2.quantity
+                    productQuantity: item.details?.map((item2) => {
+                        return item2?.quantity
                     }).join(' / '),
-                    totalPrice: item.totalPrice,
+                    totalPrice: item?.totalPrice,
                     // city: item.city,
-                    address: item.address,
-                    userName: item.userId.fullName,
-                    userEmail: item.userId.email,
-                    userPhoneNumber: item.userId.phoneNumber,
+                    address: item?.address,
+                    userName: item.userId?.fullName,
+                    userEmail: item.userId?.email,
+                    userPhoneNumber: item.userId?.phoneNumber,
                 }
             })
             setPendingOrders(filteredData)
@@ -80,18 +79,18 @@ export const Orders = () => {
                 return {
                     id: item._id,
                     orderId : item.orderid,
-                    productName: item.details.map((item2) => {
-                        return item2.productId.name
+                    productName: item.details?.map((item2) => {
+                        return item2.productId?.name
                     }).join(" / "),
-                    productQuantity: item.details.map((item2) => {
-                        return item2.quantity
+                    productQuantity: item.details?.map((item2) => {
+                        return item2?.quantity
                     }).join(' / '),
-                    totalPrice: item.totalPrice,
+                    totalPrice: item?.totalPrice,
                     // city: item.city,
-                    address: item.address,
-                    userName: item.userId.fullName,
-                    userEmail: item.userId.email,
-                    userPhoneNumber: item.userId.phoneNumber,
+                    address: item?.address,
+                    userName: item.userId?.fullName,
+                    userEmail: item.userId?.email,
+                    userPhoneNumber: item.userId?.phoneNumber,
                     drivers : item.drivers
                 }
             })
@@ -100,18 +99,18 @@ export const Orders = () => {
                 return {
                     id: item._id,
                     orderId : item.orderid,
-                    productName: item.details.map((item2) => {
-                        return item2.productId.name
+                    productName: item.details?.map((item2) => {
+                        return item2.productId?.name
                     }).join(" / "),
-                    productQuantity: item.details.map((item2) => {
-                        return item2.quantity
+                    productQuantity: item.details?.map((item2) => {
+                        return item2?.quantity
                     }).join(' / '),
-                    totalPrice: item.totalPrice,
+                    totalPrice: item?.totalPrice,
                     // city: item.city,
-                    address: item.address,
-                    userName: item.userId.fullName,
-                    userEmail: item.userId.email,
-                    userPhoneNumber: item.userId.phoneNumber,
+                    address: item?.address,
+                    userName: item.userId?.fullName,
+                    userEmail: item.userId?.email,
+                    userPhoneNumber: item.userId?.phoneNumber,
                 }
             })
             setAcceptedOrders(filteredDataAccepted)
@@ -119,18 +118,18 @@ export const Orders = () => {
                 return {
                     id: item._id,
                     orderId : item.orderid,
-                    productName: item.details.map((item2) => {
-                        return item2.productId.name
+                    productName: item.details?.map((item2) => {
+                        return item2.productId?.name
                     }).join(" / "),
-                    productQuantity: item.details.map((item2) => {
-                        return item2.quantity
+                    productQuantity: item.details?.map((item2) => {
+                        return item2?.quantity
                     }).join(' / '),
-                    totalPrice: item.totalPrice,
+                    totalPrice: item?.totalPrice,
                     // city: item.city,
-                    address: item.address,
-                    userName: item.userId.fullName,
-                    userEmail: item.userId.email,
-                    userPhoneNumber: item.userId.phoneNumber,
+                    address: item?.address,
+                    userName: item.userId?.fullName,
+                    userEmail: item.userId?.email,
+                    userPhoneNumber: item.userId?.phoneNumber,
                 }
             })
             setCompletedOrders(filteredDataCompleted)
