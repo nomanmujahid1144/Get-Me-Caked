@@ -244,7 +244,7 @@ exports.getSingleUser = async (req, res, next) => {
 
 exports.getAllUsers = async (req, res, next) => {
   try {
-    let user = await User.find({});
+    let user = await User.find({}).sort({ createdAt: -1 });
     if (user) {
       return res.status(200).json({
         success: true,
@@ -253,7 +253,7 @@ exports.getAllUsers = async (req, res, next) => {
       });
     }
     return res.status(200).json({
-      success: true,
+      success: true, 
       message: "No User found",
       data: user,
     });
