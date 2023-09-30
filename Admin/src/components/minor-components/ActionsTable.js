@@ -54,15 +54,39 @@ export const ActionsTable = (props) => {
         const lowercasedValue = value.toLowerCase().trim();
         if (lowercasedValue === "") setData(tableData);
         else {
-            const filteredData = tableData.slice(pagesVisited, pagesVisited + itemsPerPage).filter(item => {
+            const filteredData = tableData.filter(item => {
                 return Object.keys(item).some(key =>
                     item[key].toString().toLowerCase().includes(lowercasedValue)
                 );
             });
             setData(filteredData);
-            setMyFilteredData(filteredData)
+            setMyFilteredData(filteredData);
         }
     }
+
+    // const filterData = (value) => {
+    //     const lowercasedValue = value.toLowerCase().trim();
+        
+    //     if (lowercasedValue === "") {
+    //       setData(tableData); // Reset to the original dataset
+    //     } else {
+    //       // Filter the entire dataset first
+    //       const filteredData = tableData.filter(item => {
+    //         return Object.keys(item).some(key =>
+    //           item[key].toString().toLowerCase().includes(lowercasedValue)
+    //         );
+    //       });
+      
+    //       // Then apply pagination to the filtered data
+    //       const startIndex = pagesVisited * itemsPerPage;
+    //       const endIndex = startIndex + itemsPerPage;
+    //     //   const paginatedData = filteredData.slice(startIndex, endIndex);
+    //         const paginatedData = filteredData;
+            
+    //       setData(paginatedData);
+    //       setMyFilteredData(paginatedData);
+    //     }
+    //   }
     if (props.isProduct) {
         return (
             <div className='py-2 bg-gray-50'>
@@ -189,7 +213,7 @@ export const ActionsTable = (props) => {
                                                         <AddProductsForm key={parseInt(Math.random() * 10000)} isAdd={false} modal={props.modal} />
                                                     </Modal>
                                                 </> : <>
-                                                    {myFilteredData.map((item, index) => (
+                                                    {myFilteredData.slice(pagesVisited, pagesVisited + itemsPerPage).map((item, index) => (
                                                         <tr key={index}>
                                                             <td className={`text-left text-xs px-2 py-8 whitespace-nowrap ${index % 2 !== 0 ? 'bg-white' : 'bg-gray-50'}`}>
                                                                 <input onChange={() => console.log(item.DBID, "check box value simple")} className='mx-2' type="checkbox" id="DBID" name="DBID" value={item.DBID} />
